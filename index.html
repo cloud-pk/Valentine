@@ -153,11 +153,13 @@ noBtn.addEventListener("touchstart", moveNo);
 
 /* YES = love explosion + music + show message */
 yesBtn.onclick = () => {
-  // Play music with promise handling
+  // Force play on direct user click
+  music.currentTime = 0; // restart from beginning
+  music.volume = 0.5; // optional, softer
   const playPromise = music.play();
   if (playPromise !== undefined) {
-    playPromise.catch(() => {
-      // Failed to play automatically, can handle here or ignore
+    playPromise.catch(error => {
+      console.log("Audio play was blocked, try tapping the page again");
     });
   }
 
@@ -174,11 +176,11 @@ yesBtn.onclick = () => {
     setTimeout(() => p.remove(), 1400);
   }
 
-  // Show “I love you” message with fade in after 1.5s
+  // Show "I love you" message
   loveMessage.style.display = "block";
   setTimeout(() => {
     loveMessage.style.opacity = 1;
-  }, 100); // small delay to trigger CSS transition
+  }, 100);
 };
 /* Shooting stars loop */
 setInterval(()=>{
@@ -192,5 +194,6 @@ setInterval(()=>{
 
 </body>
 </html>
+
 
 
