@@ -1,233 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Be My Valentine 💙</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Special Valentine 💙</title>
 
   <style>
-    * {
-      box-sizing: border-box;
-      font-family: "Poppins", sans-serif;
-    }
-
     body {
       margin: 0;
       height: 100vh;
       background: radial-gradient(circle at top, #1b2a4e, #050b1e);
-      overflow: hidden;
       display: flex;
       align-items: center;
       justify-content: center;
       color: white;
-    }
-
-    /* Starry background */
-    body::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background-image:
-        radial-gradient(1.5px 1.5px at 10% 20%, white 50%, transparent 51%),
-        radial-gradient(1px 1px at 70% 40%, white 50%, transparent 51%),
-        radial-gradient(2px 2px at 40% 80%, white 50%, transparent 51%);
-      opacity: 0.6;
-      z-index: 0;
+      font-family: Poppins, sans-serif;
     }
 
     .card {
-      background: rgba(10, 20, 50, 0.85);
-      backdrop-filter: blur(6px);
-      border-radius: 26px;
-      padding: 30px 24px;
-      width: 90%;
-      max-width: 380px;
+      background: rgba(10,20,50,0.9);
+      padding: 30px;
+      border-radius: 20px;
       text-align: center;
-      box-shadow: 0 0 40px rgba(100,150,255,0.3);
-      position: relative;
-      z-index: 2;
+      width: 90%;
+      max-width: 360px;
+      box-shadow: 0 0 40px rgba(100,150,255,0.4);
     }
 
     h1 {
       color: #7dd3ff;
-      margin-bottom: 10px;
-      font-size: 1.8rem;
     }
 
     p {
       color: #dbeafe;
-      margin-bottom: 26px;
-      font-size: 1rem;
-    }
-
-    .buttons {
-      position: relative;
-      height: 140px;
     }
 
     button {
+      margin-top: 20px;
+      padding: 12px 24px;
+      font-size: 1rem;
+      border-radius: 30px;
       border: none;
-      padding: 14px 26px;
-      font-size: 1.1rem;
-      border-radius: 40px;
       cursor: pointer;
-      position: absolute;
-      transition: 0.2s ease;
-      touch-action: manipulation;
-    }
-
-    .yes {
       background: linear-gradient(135deg, #3b82f6, #60a5fa);
       color: white;
-      left: 50%;
-      transform: translateX(-120%);
-    }
-
-    .yes:hover {
-      transform: translateX(-120%) scale(1.1);
-      box-shadow: 0 0 20px #60a5fa;
-    }
-
-    .no {
-      background: #1f2933;
-      color: #9ca3af;
-      left: 50%;
-      transform: translateX(20%);
-    }
-
-    /* Floating space emojis */
-    .float {
-      position: absolute;
-      font-size: 26px;
-      opacity: 0.7;
-      animation: float 6s infinite ease-in-out;
-    }
-
-    .float:nth-child(1) { top: -15px; left: 20px; }
-    .float:nth-child(2) { top: -10px; right: 30px; animation-delay: 1s; }
-    .float:nth-child(3) { bottom: -10px; left: 45%; animation-delay: 2s; }
-
-    @keyframes float {
-      0% { transform: translateY(0); }
-      50% { transform: translateY(-14px); }
-      100% { transform: translateY(0); }
-    }
-
-    /* Shooting stars */
-    .shooting-star {
-      position: fixed;
-      top: -50px;
-      width: 2px;
-      height: 80px;
-      background: linear-gradient(white, transparent);
-      opacity: 0.8;
-      animation: shoot 1.2s linear forwards;
-      z-index: 1;
-    }
-
-    @keyframes shoot {
-      from {
-        transform: translate(0, 0) rotate(45deg);
-      }
-      to {
-        transform: translate(-600px, 600px) rotate(45deg);
-        opacity: 0;
-      }
-    }
-
-    /* Explosion particles */
-    .particle {
-      position: fixed;
-      font-size: 22px;
-      pointer-events: none;
-      animation: explode 1.4s forwards ease-out;
-      z-index: 5;
-    }
-
-    @keyframes explode {
-      from {
-        transform: scale(0);
-        opacity: 1;
-      }
-      to {
-        transform: translate(var(--x), var(--y)) scale(1.4);
-        opacity: 0;
-      }
-    }
-
-    /* Mobile tweaks */
-    @media (max-width: 480px) {
-      h1 { font-size: 1.6rem; }
-      p { font-size: 0.95rem; }
-      button { font-size: 1rem; padding: 12px 22px; }
     }
   </style>
 </head>
+
 <body>
-
-  <audio id="music" src="music.mp3" loop></audio>
-
   <div class="card">
-    <div class="float">🪐</div>
-    <div class="float">🚀</div>
-    <div class="float">🏎️</div>
-
-    <h1>Hey my universe 💙</h1>
-    <p>
-      Out of every galaxy and timeline,<br>
-      I’d still choose you 🌌<br><br>
-      Will you be my Valentine?
-    </p>
-
-    <div class="buttons">
-      <button class="yes" id="yesBtn">YES 💙</button>
-      <button class="no" id="noBtn">NO 🙄</button>
-    </div>
+    <h1>Special Valentine 💙</h1>
+    <p>This page is working perfectly 🌌</p>
+    <button>YES 💙</button>
   </div>
-
-  <script>
-    const noBtn = document.getElementById("noBtn");
-    const yesBtn = document.getElementById("yesBtn");
-    const music = document.getElementById("music");
-
-    // NO button runs forever (mouse + touch)
-    function moveNoButton() {
-      const x = Math.random() * (window.innerWidth - 120);
-      const y = Math.random() * (window.innerHeight - 60);
-      noBtn.style.position = "fixed";
-      noBtn.style.left = x + "px";
-      noBtn.style.top = y + "px";
-    }
-
-    noBtn.addEventListener("mouseenter", moveNoButton);
-    noBtn.addEventListener("touchstart", moveNoButton);
-
-    // YES button: music + explosion
-    yesBtn.addEventListener("click", () => {
-      music.play();
-
-      for (let i = 0; i < 60; i++) {
-        const particle = document.createElement("div");
-        particle.className = "particle";
-        particle.textContent = Math.random() > 0.5 ? "💙" : "✨";
-        particle.style.left = Math.random() * window.innerWidth + "px";
-        particle.style.top = Math.random() * window.innerHeight + "px";
-        particle.style.setProperty("--x", `${(Math.random() - 0.5) * 300}px`);
-        particle.style.setProperty("--y", `${(Math.random() - 0.5) * 300}px`);
-        document.body.appendChild(particle);
-        setTimeout(() => particle.remove(), 1400);
-      }
-    });
-
-    // Shooting stars generator
-    setInterval(() => {
-      const star = document.createElement("div");
-      star.className = "shooting-star";
-      star.style.left = Math.random() * window.innerWidth + "px";
-      document.body.appendChild(star);
-      setTimeout(() => star.remove(), 1200);
-    }, 2000);
-  </script>
-
 </body>
 </html>
+
+
