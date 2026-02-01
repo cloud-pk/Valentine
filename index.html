@@ -131,38 +131,55 @@ button{
     <button class="yes" id="yes">YES 💙</button>
     <button class="no" id="no">NO 🙄</button>
   </div>
+  <div id="loveMessage" style="display:none; margin-top:20px; font-size:1.3rem; color:#7dd3ff; opacity:0; transition: opacity 1.5s ease;">
+  💖 I love you! 💖
+</div>
 </div>
 
 <script>
-const noBtn=document.getElementById("no");
-const yesBtn=document.getElementById("yes");
-const music=document.getElementById("music");
+const noBtn = document.getElementById("no");
+const yesBtn = document.getElementById("yes");
+const music = document.getElementById("music");
+const loveMessage = document.getElementById("loveMessage");
 
 /* NO runs forever */
-function moveNo(){
-  noBtn.style.position="fixed";
-  noBtn.style.left=Math.random()*(innerWidth-120)+"px";
-  noBtn.style.top=Math.random()*(innerHeight-60)+"px";
+function moveNo() {
+  noBtn.style.position = "fixed";
+  noBtn.style.left = Math.random() * (window.innerWidth - 120) + "px";
+  noBtn.style.top = Math.random() * (window.innerHeight - 60) + "px";
 }
-noBtn.addEventListener("mouseenter",moveNo);
-noBtn.addEventListener("touchstart",moveNo);
+noBtn.addEventListener("mouseenter", moveNo);
+noBtn.addEventListener("touchstart", moveNo);
 
-/* YES = love explosion + music */
-yesBtn.onclick=()=>{
-  music.play();
-  for(let i=0;i<60;i++){
-    const p=document.createElement("div");
-    p.className="particle";
-    p.textContent=Math.random()>.5?"💙":"✨";
-    p.style.left=Math.random()*innerWidth+"px";
-    p.style.top=Math.random()*innerHeight+"px";
-    p.style.setProperty("--x",(Math.random()-.5)*300+"px");
-    p.style.setProperty("--y",(Math.random()-.5)*300+"px");
-    document.body.appendChild(p);
-    setTimeout(()=>p.remove(),1400);
+/* YES = love explosion + music + show message */
+yesBtn.onclick = () => {
+  // Play music with promise handling
+  const playPromise = music.play();
+  if (playPromise !== undefined) {
+    playPromise.catch(() => {
+      // Failed to play automatically, can handle here or ignore
+    });
   }
-};
 
+  // Hearts explosion
+  for (let i = 0; i < 60; i++) {
+    const p = document.createElement("div");
+    p.className = "particle";
+    p.textContent = Math.random() > 0.5 ? "💙" : "✨";
+    p.style.left = Math.random() * window.innerWidth + "px";
+    p.style.top = Math.random() * window.innerHeight + "px";
+    p.style.setProperty("--x", (Math.random() - 0.5) * 300 + "px");
+    p.style.setProperty("--y", (Math.random() - 0.5) * 300 + "px");
+    document.body.appendChild(p);
+    setTimeout(() => p.remove(), 1400);
+  }
+
+  // Show “I love you” message with fade in after 1.5s
+  loveMessage.style.display = "block";
+  setTimeout(() => {
+    loveMessage.style.opacity = 1;
+  }, 100); // small delay to trigger CSS transition
+};
 /* Shooting stars loop */
 setInterval(()=>{
   const s=document.createElement("div");
@@ -175,3 +192,4 @@ setInterval(()=>{
 
 </body>
 </html>
+
