@@ -88,17 +88,24 @@ button{
 }
 #secondPage.show{display:flex;opacity:1;}
 #secondPage h2{color:#ffb6b9;font-size:1.6rem;margin-bottom:20px;}
-.penguins{display:flex;gap:20px;}
-.penguin{font-size:50px;animation:penguinDance 1s infinite alternate;}
-@keyframes penguinDance{0%{transform:translateY(0) rotate(-10deg);}50%{transform:translateY(-15px) rotate(10deg);}100%{transform:translateY(0) rotate(-10deg);}}
+.penguins{display:flex;gap:10px;align-items:flex-end;}
+.penguin-left{font-size:50px;transform:rotate(-10deg);}
+.penguin-right{font-size:50px;transform:rotate(10deg);}
+.kiss{position:relative;animation:kissAnim 1s infinite alternate;}
+@keyframes kissAnim{
+  0%{transform:translateX(0) translateY(0);}
+  50%{transform:translateX(5px) translateY(-5px);}
+  100%{transform:translateX(0) translateY(0);}
+}
 
 /* Mobile tweaks */
-@media(max-width:480px){h1{font-size:1.6rem;}p{font-size:.95rem;} #secondPage h2{font-size:1.3rem;} .penguin{font-size:40px;}}
+@media(max-width:480px){h1{font-size:1.6rem;}p{font-size:.95rem;} #secondPage h2{font-size:1.3rem;} .penguin-left,.penguin-right{font-size:40px;}}
 </style>
 </head>
 
 <body>
 
+<!-- Replace src with your uploaded slow love music file -->
 <audio id="music" src="music.mp3" loop preload="auto"></audio>
 
 <!-- Main Card -->
@@ -118,10 +125,10 @@ button{
 
 <!-- Second Page -->
 <div id="secondPage">
-  <h2> 💕Luuvu my Kongu Pengu 💕</h2>
+  <h2>Luuvu my Kongu Pengu 💕</h2>
   <div class="penguins">
-    <div class="penguin">🐧</div>
-    <div class="penguin">🐧</div>
+    <div class="penguin-left kiss">🐧</div>
+    <div class="penguin-right kiss">🐧</div>
   </div>
 </div>
 
@@ -183,4 +190,3 @@ setInterval(()=>{
 
 </body>
 </html>
-
