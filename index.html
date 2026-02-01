@@ -6,20 +6,10 @@
 <title>My Valentine 💙</title>
 
 <style>
-*{box-sizing:border-box;font-family:Poppins,sans-serif}
+*{box-sizing:border-box;font-family:Poppins,sans-serif;margin:0;padding:0;}
+body{overflow:hidden;background:radial-gradient(circle at top,#1b2a4e,#050b1e);color:white;display:flex;align-items:center;justify-content:center;height:100vh;transition:opacity 1s ease;}
 
-body{
-  margin:0;
-  height:100vh;
-  background:radial-gradient(circle at top,#1b2a4e,#050b1e);
-  overflow:hidden;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:white;
-}
-
-/* Stars */
+/* Stars background */
 body::before{
   content:"";
   position:absolute;
@@ -31,6 +21,7 @@ body::before{
   opacity:.6;
 }
 
+/* Card styling */
 .card{
   background:rgba(10,20,50,.9);
   padding:30px;
@@ -43,14 +34,12 @@ body::before{
   z-index:2;
 }
 
-h1{color:#7dd3ff}
-p{color:#dbeafe}
+/* Texts */
+h1{color:#7dd3ff;}
+p{color:#dbeafe;}
 
-.buttons{
-  position:relative;
-  height:140px;
-}
-
+/* Buttons */
+.buttons{position:relative;height:140px;}
 button{
   border:none;
   padding:14px 26px;
@@ -59,20 +48,8 @@ button{
   cursor:pointer;
   position:absolute;
 }
-
-.yes{
-  background:linear-gradient(135deg,#3b82f6,#60a5fa);
-  color:white;
-  left:50%;
-  transform:translateX(-120%);
-}
-
-.no{
-  background:#1f2933;
-  color:#9ca3af;
-  left:50%;
-  transform:translateX(20%);
-}
+.yes{background:linear-gradient(135deg,#3b82f6,#60a5fa);color:white;left:50%;transform:translateX(-120%);}
+.no{background:#1f2933;color:#9ca3af;left:50%;transform:translateX(20%);}
 
 /* Shooting stars */
 .star{
@@ -84,34 +61,39 @@ button{
   animation:shoot 1.2s linear forwards;
   opacity:.8;
 }
+@keyframes shoot{to{transform:translate(-600px,600px) rotate(45deg);opacity:0;}}
 
-@keyframes shoot{
-  to{
-    transform:translate(-600px,600px) rotate(45deg);
-    opacity:0;
-  }
-}
-
-/* Explosion */
+/* Explosion hearts */
 .particle{
   position:fixed;
   font-size:22px;
   pointer-events:none;
   animation:boom 1.4s forwards;
 }
+@keyframes boom{from{transform:scale(0);opacity:1} to{transform:translate(var(--x),var(--y)) scale(1.4);opacity:0}}
 
-@keyframes boom{
-  from{transform:scale(0);opacity:1}
-  to{
-    transform:translate(var(--x),var(--y)) scale(1.4);
-    opacity:0
-  }
+/* Second Page */
+#secondPage{
+  display:none;
+  position:absolute;
+  inset:0;
+  background:radial-gradient(circle at top,#1b2a4e,#050b1e);
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  z-index:5;
+  padding:20px;
+  opacity:0;
+  transition:opacity 1s ease;
 }
+#secondPage.show{display:flex;opacity:1;}
+#secondPage h2{color:#ffb6b9;font-size:1.6rem;margin-bottom:20px;}
+.penguins{display:flex;gap:20px;}
+.penguin{font-size:50px;animation:penguinDance 1s infinite alternate;}
+@keyframes penguinDance{0%{transform:translateY(0) rotate(-10deg);}50%{transform:translateY(-15px) rotate(10deg);}100%{transform:translateY(0) rotate(-10deg);}}
 
-@media(max-width:480px){
-  h1{font-size:1.6rem}
-  p{font-size:.95rem}
-}
+/* Mobile tweaks */
+@media(max-width:480px){h1{font-size:1.6rem;}p{font-size:.95rem;} #secondPage h2{font-size:1.3rem;} .penguin{font-size:40px;}}
 </style>
 </head>
 
@@ -119,8 +101,8 @@ button{
 
 <audio id="music" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" loop preload="auto"></audio>
 
-
-<div class="card">
+<!-- Main Card -->
+<div class="card" id="mainCard">
   <h1>Hey my universe 💙</h1>
   <p>
     Out of every galaxy and timeline,<br>
@@ -132,57 +114,63 @@ button{
     <button class="yes" id="yes">YES 💙</button>
     <button class="no" id="no">NO 🙄</button>
   </div>
-  <div id="loveMessage" style="display:none; margin-top:20px; font-size:1.3rem; color:#7dd3ff; opacity:0; transition: opacity 1.5s ease;">
-  💖 I luvvu my kongu pengu!! 💖
 </div>
+
+<!-- Second Page -->
+<div id="secondPage">
+  <h2>Luuvu my Kongu Pengu 💕</h2>
+  <div class="penguins">
+    <div class="penguin">🐧</div>
+    <div class="penguin">🐧</div>
+  </div>
 </div>
 
 <script>
-const noBtn = document.getElementById("no");
-const yesBtn = document.getElementById("yes");
-const music = document.getElementById("music");
-const loveMessage = document.getElementById("loveMessage");
+const noBtn=document.getElementById("no");
+const yesBtn=document.getElementById("yes");
+const music=document.getElementById("music");
+const mainCard=document.getElementById("mainCard");
+const secondPage=document.getElementById("secondPage");
 
 /* NO runs forever */
-function moveNo() {
-  noBtn.style.position = "fixed";
-  noBtn.style.left = Math.random() * (window.innerWidth - 120) + "px";
-  noBtn.style.top = Math.random() * (window.innerHeight - 60) + "px";
+function moveNo(){
+  noBtn.style.position="fixed";
+  noBtn.style.left=Math.random()*(innerWidth-120)+"px";
+  noBtn.style.top=Math.random()*(innerHeight-60)+"px";
 }
-noBtn.addEventListener("mouseenter", moveNo);
-noBtn.addEventListener("touchstart", moveNo);
+noBtn.addEventListener("mouseenter",moveNo);
+noBtn.addEventListener("touchstart",moveNo);
 
-/* YES = love explosion + music + show message */
-yesBtn.onclick = () => {
-  // Force play on direct user click
-  music.currentTime = 0; // restart from beginning
-  music.volume = 0.5; // optional, softer
-  const playPromise = music.play();
-  if (playPromise !== undefined) {
-    playPromise.catch(error => {
-      console.log("Audio play was blocked, try tapping the page again");
-    });
+/* YES = hearts + music + transition to second page */
+yesBtn.onclick=()=>{
+  // Play music safely
+  music.currentTime=0;
+  music.volume=0.5;
+  const playPromise=music.play();
+  if(playPromise!==undefined){
+    playPromise.catch(()=>console.log("Audio blocked, tap again"));
   }
 
   // Hearts explosion
-  for (let i = 0; i < 60; i++) {
-    const p = document.createElement("div");
-    p.className = "particle";
-    p.textContent = Math.random() > 0.5 ? "💙" : "✨";
-    p.style.left = Math.random() * window.innerWidth + "px";
-    p.style.top = Math.random() * window.innerHeight + "px";
-    p.style.setProperty("--x", (Math.random() - 0.5) * 300 + "px");
-    p.style.setProperty("--y", (Math.random() - 0.5) * 300 + "px");
+  for(let i=0;i<60;i++){
+    const p=document.createElement("div");
+    p.className="particle";
+    p.textContent=Math.random()>.5?"💙":"✨";
+    p.style.left=Math.random()*innerWidth+"px";
+    p.style.top=Math.random()*innerHeight+"px";
+    p.style.setProperty("--x",(Math.random()-.5)*300+"px");
+    p.style.setProperty("--y",(Math.random()-.5)*300+"px");
     document.body.appendChild(p);
-    setTimeout(() => p.remove(), 1400);
+    setTimeout(()=>p.remove(),1400);
   }
 
-  // Show "I love you" message
-  loveMessage.style.display = "block";
-  setTimeout(() => {
-    loveMessage.style.opacity = 1;
-  }, 100);
+  // Fade transition to second page after 1.5s
+  setTimeout(()=>{
+    mainCard.style.display="none";
+    secondPage.classList.add("show");
+  },1500);
 };
+
 /* Shooting stars loop */
 setInterval(()=>{
   const s=document.createElement("div");
@@ -195,8 +183,3 @@ setInterval(()=>{
 
 </body>
 </html>
-
-
-
-
-
